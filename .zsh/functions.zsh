@@ -1,34 +1,50 @@
-# create a new directory and enter it
+# Create a New Directory and Enter it
 md() {
-  mkdir -p "$@" && cd "$@"
+  mkdir -p "$1" && cd "$1"
 }
 
-# show a tree structure of the current directory
+# Show a Tree Structure of the Current Directory
 tree() {
-    find . -print | sed -e "s;[^/]*/;|____;g;s;____|;   |;g"
+  find . -print | sed -e "s;[^/]*/;|____;g;s;____|;   |;g"
 }
 
-# download file via curl
+# Download File via Curl
 get() {
-  curl -# -O "$@"
+  curl -# -O "$1"
 }
 
-# pack file or directory in tar.gz
+# Recursively Remove All .DS_Store Files
+rmds() {
+  find . -name '.DS_Store' -type f -delete
+}
+
+# Pack File or Directory in tar.gz
 pack() {
-  tar --exclude=.DS_Store -zcvf "$@".tar.gz "$@"
+  tar --exclude=.DS_Store -zcvf "$1".tar.gz "$1"
 }
 
-# get size of image using sips
+# Get Size of Image Using Sips
 imgsize() {
-  sips --getProperty pixelWidth --getProperty pixelHeight "$@"
+  sips --getProperty pixelWidth --getProperty pixelHeight "$1"
 }
 
-# shortcut for fast gulp plugin installation
+# Running DLNA server via MiniDLNA
+dlna_start() {
+  minidlnad -R \
+    -f ~/.config/minidlna/minidlna.conf \
+    -P ~/.config/minidlna/minidlna.pid
+}
+
+dlna_stop() {
+  pkill minidlnad
+}
+
+# Shortcut for Fast Gulp Plugin Installation
 gi() {
-  npm install --save-dev gulp-"$@"
+  npm install --save-dev gulp-"$1"
 }
 
-# prepare wordpress to theme or plugin development
+# Prepare WordPress to Theme or Plugin Development
 wpgo() {
   curl -# -O https://wordpress.org/latest.tar.gz
   tar xzf latest.tar.gz
