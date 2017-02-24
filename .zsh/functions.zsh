@@ -1,39 +1,24 @@
-# Create a New Directory and Enter it
+# Create a new directory and enter it.
 md() {
 	mkdir -p "$1" && cd "$1"
 }
 
-# Show a Tree Structure of the Current Directory
-tree() {
-	find . -print | sed -e "s;[^/]*/;|____;g;s;____|;   |;g"
-}
-
-# Download File via Curl
-get() {
-	curl -# -O "$1"
-}
-
-# Recursively Remove All .DS_Store Files
-rmds() {
-	find . -name '.DS_Store' -type f -delete
-}
-
-# Generate a Random Password
+# Generate a random password.
 genpass() {
 	openssl rand -base64 32 | tr -d '=/+' | cut -c 1-16 | tr -d '\n' | pbcopy
 }
 
-# Pack File or Directory in tar.gz
+# Pack file or directory in tar.gz.
 pack() {
 	tar --exclude=.DS_Store -zcvf "$1".tar.gz "$1"
 }
 
-# Get Size of Image Using Sips
+# Get size of image using Sips.
 imgsize() {
 	sips --getProperty pixelWidth --getProperty pixelHeight "$1"
 }
 
-# Running DLNA server via MiniDLNA
+# Running DLNA server via MiniDLNA.
 dlna_start() {
 	minidlnad -R \
 		-f ~/.config/minidlna/minidlna.conf \
@@ -44,21 +29,13 @@ dlna_stop() {
 	pkill minidlnad
 }
 
-# Shortcut for Fast Gulp Plugin Installation
+# Shortcut for fast Gulp plugin installation.
 gi() {
 	npm install --save-dev gulp-"$1"
 }
 
-# Prepare WordPress to Theme or Plugin Development
+# Prepare WordPress to theme or plugin development.
 wpgo() {
-	curl -# -O https://wordpress.org/latest.tar.gz
-	tar xzf latest.tar.gz
-	mv wordpress/* .
-	rm -rf \
-		wordpress \
-		latest.tar.gz \
-		license.txt \
-		readme.html \
-		wp-content/plugins/{akismet,hello.php} \
-		wp-content/themes/twenty*
+	curl -# https://wordpress.org/latest.tar.gz | tar --strip-components=1 -xzf -
+	rm -rf wp-content/plugins/{akismet,hello.php} wp-content/themes/twenty*
 }
