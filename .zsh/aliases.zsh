@@ -22,14 +22,17 @@ alias c='clear'
 alias zshrc='nano ~/.zshrc'
 alias st='subl $@'
 
+# Show my IP address.
+alias myip='curl 2ip.io'
+
+# Get week number.
+alias week='date +%V'
+
 # Recursively delete those annoying .DS_Store files.
 alias rmds='find . -type f -name ".DS_Store" -print0 | xargs -0 rm -rf'
 
 # Verify checksums in the sfv file.
 alias sfv='cksfv -f *.sfv'
-
-# Create RAR archive with random name.
-alias mp='rar a -ep1 -m0 -t $(openssl rand -hex 8) "$1"'
 
 # Quickly reload .zshrc to enable changes.
 alias reload='source ~/.zshrc'
